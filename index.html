@@ -1,0 +1,543 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SRM Automações | Pitch</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #080D18;
+  --navy: #101B35;
+  --blue: #1769FF;
+  --light: #E8F0FF;
+  --muted: #A6B3C9;
+  --border: rgba(110,155,255,.19);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: white;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+.presentation {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 75% 15%, rgba(23,105,255,.17), transparent 45%),
+    radial-gradient(ellipse at 15% 85%, rgba(23,105,255,.10), transparent 45%),
+    var(--bg);
+}
+
+.presentation::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .12;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size: 55px 55px;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  padding: 8% 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(35px);
+  transition: opacity .5s ease, transform .5s ease, visibility .5s;
+  z-index: 1;
+}
+
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.slide-number {
+  position: absolute;
+  top: 35px;
+  right: 55px;
+  color: #8295B8;
+  font-size: 12px;
+  letter-spacing: 4px;
+}
+
+.eyebrow {
+  color: #6FA2FF;
+  font-size: 12px;
+  letter-spacing: 5px;
+  margin-bottom: 25px;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: clamp(35px,5vw,65px);
+  line-height: 1.1;
+  letter-spacing: -2px;
+  margin-bottom: 25px;
+}
+
+h3 {
+  font-size: 21px;
+  margin-bottom: 12px;
+}
+
+p {
+  color: var(--muted);
+  font-size: clamp(14px,1.5vw,18px);
+  line-height: 1.8;
+  max-width: 800px;
+}
+
+.blue-text {
+  background: linear-gradient(120deg,#fff,#75A8FF,#1769FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo {
+  font-size: clamp(75px,11vw,125px);
+  font-weight: 800;
+  letter-spacing: -9px;
+  line-height: 1;
+}
+
+.logo-sub {
+  font-size: 14px;
+  letter-spacing: 11px;
+  color: #A9C5FF;
+  margin-top: 14px;
+}
+
+.line {
+  width: 65px;
+  height: 3px;
+  background: var(--blue);
+  margin: 25px 0;
+  box-shadow: 0 0 15px rgba(23,105,255,.6);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 18px;
+  margin-top: 25px;
+  max-width: 950px;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 18px;
+  margin-top: 30px;
+}
+
+.card {
+  padding: 25px;
+  border: 1px solid var(--border);
+  background: linear-gradient(145deg,rgba(23,45,85,.72),rgba(10,17,32,.9));
+  border-radius: 12px;
+  transition: .3s;
+}
+
+.card:hover {
+  border-color: var(--blue);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 35px rgba(23,105,255,.12);
+}
+
+.card .number {
+  font-size: 12px;
+  color: #6FA2FF;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+}
+
+.card p {
+  font-size: 13px;
+}
+
+.tag {
+  display: inline-block;
+  border: 1px solid rgba(75,135,255,.4);
+  background: rgba(23,105,255,.08);
+  color: #A9C5FF;
+  padding: 9px 15px;
+  border-radius: 30px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  margin: 5px;
+}
+
+.team {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 32px;
+}
+
+.member {
+  border: 1px solid rgba(111,162,255,.35);
+  background: rgba(23,105,255,.10);
+  padding: 11px 17px;
+  border-radius: 7px;
+  font-size: 12px;
+  color: #D9E6FF;
+  letter-spacing: .5px;
+}
+
+.team-label {
+  color: #6FA2FF;
+  font-size: 10px;
+  letter-spacing: 4px;
+  margin-top: 28px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 30px;
+  left: 10%;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: #63738F;
+  z-index: 5;
+}
+
+.navigation {
+  position: absolute;
+  bottom: 20px;
+  right: 8%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 10;
+}
+
+.navigation button {
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  border: 1px solid rgba(111,162,255,.4);
+  background: #142442;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.navigation button:hover {
+  background: var(--blue);
+  border-color: var(--blue);
+}
+
+#counter {
+  font-size: 12px;
+  color: #A6B3C9;
+  letter-spacing: 2px;
+}
+
+.progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg,#1769FF,#8AB5FF);
+  width: 16.66%;
+  transition: width .4s;
+  z-index: 20;
+  box-shadow: 0 0 12px rgba(23,105,255,.7);
+}
+
+@media(max-width:700px) {
+  .slide { padding: 12% 7%; }
+  .grid { grid-template-columns: 1fr; gap: 10px; }
+  .service-grid { grid-template-columns: 1fr; gap: 10px; }
+  .card { padding: 14px; }
+  .card .number { margin-bottom: 7px; }
+  .card h3 { font-size: 16px; margin-bottom: 5px; }
+  .card p { font-size: 11px; line-height: 1.5; }
+  .slide-number { top: 20px; right: 25px; }
+  .footer { left: 7%; font-size: 8px; bottom: 35px; }
+  .navigation { right: 6%; bottom: 15px; }
+  .logo-sub { font-size: 11px; letter-spacing: 7px; }
+  .team { gap: 7px; margin-top: 22px; }
+  .member { font-size: 10px; padding: 9px 11px; }
+  .team-label { margin-top: 22px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="presentation">
+<div class="progress" id="progress"></div>
+
+<!-- SLIDE 1: CAPA -->
+<section class="slide active">
+<div class="slide-number">01 / 06</div>
+
+<div style="text-align:center">
+<div class="logo blue-text">SRM</div>
+<div class="logo-sub">AUTOMAÇÕES</div>
+
+<div class="line" style="margin:35px auto"></div>
+
+<p style="margin:auto;letter-spacing:3px;font-size:12px">
+AUTOMAÇÃO INTELIGENTE PARA NEGÓCIOS
+</p>
+
+<div class="team-label">EQUIPE SRM</div>
+
+<div class="team">
+<div class="member">Lucas Samuel</div>
+<div class="member">Larissa Rodrigues</div>
+<div class="member">Enzo Calgaro</div>
+<div class="member">Willian</div>
+</div>
+</div>
+</section>
+
+<!-- SLIDE 2: QUEM SOMOS -->
+<section class="slide">
+<div class="slide-number">02 / 06</div>
+<div class="eyebrow">01 — SOBRE A EMPRESA</div>
+
+<h2>Quem <span class="blue-text">somos.</span></h2>
+<div class="line"></div>
+
+<p>
+Somos a <strong style="color:white">SRM Automações</strong>,
+uma startup de tecnologia focada no desenvolvimento de
+soluções inteligentes para automatizar serviços e otimizar
+processos empresariais.
+<br><br>
+Unimos tecnologia e estratégia para reduzir tarefas manuais,
+economizar tempo e melhorar a experiência dos clientes.
+</p>
+</section>
+
+<!-- SLIDE 3: PROBLEMA -->
+<section class="slide">
+<div class="slide-number">03 / 06</div>
+<div class="eyebrow">02 — O PROBLEMA</div>
+
+<h2>
+Empresas perdem tempo<br>
+com processos <span class="blue-text">ineficientes.</span>
+</h2>
+
+<div class="grid">
+<div class="card">
+<div class="number">01</div>
+<h3>Atendimento lento</h3>
+<p>Clientes esperando por respostas e informações.</p>
+</div>
+
+<div class="card">
+<div class="number">02</div>
+<h3>Oportunidades perdidas</h3>
+<p>Falta de acompanhamento comercial.</p>
+</div>
+
+<div class="card">
+<div class="number">03</div>
+<h3>Tarefas repetitivas</h3>
+<p>Tempo desperdiçado em atividades manuais.</p>
+</div>
+
+<div class="card">
+<div class="number">04</div>
+<h3>Desorganização</h3>
+<p>Processos que dificultam o crescimento.</p>
+</div>
+</div>
+</section>
+
+<!-- SLIDE 4: SOLUÇÕES -->
+<section class="slide">
+<div class="slide-number">04 / 06</div>
+<div class="eyebrow">03 — NOSSAS SOLUÇÕES</div>
+
+<h2>
+Tecnologia aplicada<br>
+a problemas <span class="blue-text">reais.</span>
+</h2>
+
+<div class="service-grid">
+<div class="card">
+<div class="number">01</div>
+<h3>WhatsApp inteligente</h3>
+<p>
+Agentes automatizados para atender clientes,
+responder dúvidas e auxiliar nas vendas.
+</p>
+</div>
+
+<div class="card">
+<div class="number">02</div>
+<h3>Cardápios digitais</h3>
+<p>
+Plataformas modernas e interativas para
+restaurantes e estabelecimentos alimentícios.
+</p>
+</div>
+
+<div class="card">
+<div class="number">03</div>
+<h3>Automação de processos</h3>
+<p>
+Soluções personalizadas para simplificar
+operações e reduzir tarefas manuais.
+</p>
+</div>
+</div>
+</section>
+
+<!-- SLIDE 5: DIFERENCIAL -->
+<section class="slide">
+<div class="slide-number">05 / 06</div>
+<div class="eyebrow">04 — NOSSO DIFERENCIAL</div>
+
+<h2>
+Não entregamos apenas<br>
+<span class="blue-text">tecnologia.</span>
+</h2>
+
+<div class="line"></div>
+
+<p>
+Entendemos os desafios de cada negócio antes de
+desenvolver uma solução.
+<br><br>
+Nosso objetivo é conectar tecnologia às necessidades
+reais das empresas, criando ferramentas que contribuam
+para operações mais eficientes e melhores resultados.
+</p>
+
+<div style="margin-top:30px">
+<span class="tag">INOVAÇÃO</span>
+<span class="tag">PERSONALIZAÇÃO</span>
+<span class="tag">EFICIÊNCIA</span>
+<span class="tag">TECNOLOGIA</span>
+</div>
+</section>
+
+<!-- SLIDE 6: ENCERRAMENTO SEM NOMES -->
+<section class="slide">
+<div class="slide-number">06 / 06</div>
+
+<div style="text-align:center">
+<div class="logo blue-text">SRM</div>
+<div class="logo-sub">AUTOMAÇÕES</div>
+
+<div class="line" style="margin:35px auto"></div>
+
+<h2 style="font-size:clamp(25px,4vw,45px)">
+Tecnologia que transforma.<br>
+<span class="blue-text">Automação que impulsiona.</span>
+</h2>
+
+<p style="margin:20px auto">
+O futuro dos negócios começa com a inovação.
+</p>
+</div>
+</section>
+
+<div class="footer">
+SRM AUTOMAÇÕES • APRESENTAÇÃO INSTITUCIONAL
+</div>
+
+<div class="navigation">
+<span id="counter">01 / 06</span>
+<button onclick="previousSlide()">‹</button>
+<button onclick="nextSlide()">›</button>
+</div>
+
+</div>
+
+<script>
+let current = 0;
+
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+
+function updateSlides() {
+  slides.forEach((slide,index) => {
+    slide.classList.toggle('active',index === current);
+  });
+
+  document.getElementById('counter').textContent =
+    String(current + 1).padStart(2,'0') + ' / 06';
+
+  document.getElementById('progress').style.width =
+    ((current + 1) / total * 100) + '%';
+}
+
+function nextSlide() {
+  if(current < total - 1) {
+    current++;
+    updateSlides();
+  }
+}
+
+function previousSlide() {
+  if(current > 0) {
+    current--;
+    updateSlides();
+  }
+}
+
+document.addEventListener('keydown',event => {
+  if(event.key === 'ArrowRight' || event.key === ' ') {
+    nextSlide();
+  }
+
+  if(event.key === 'ArrowLeft') {
+    previousSlide();
+  }
+});
+
+let touchStart = 0;
+
+document.addEventListener('touchstart',event => {
+  touchStart = event.changedTouches[0].screenX;
+});
+
+document.addEventListener('touchend',event => {
+  let distance =
+    event.changedTouches[0].screenX - touchStart;
+
+  if(Math.abs(distance) > 70) {
+    if(distance < 0) nextSlide();
+    else previousSlide();
+  }
+});
+
+updateSlides();
+</script>
+
+</body>
+</html>
+ 
